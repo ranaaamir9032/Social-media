@@ -114,7 +114,6 @@ export const getUserPosts = async (req, res) => {
 export const getTimelinePosts = async (req, res) => {
   try {
     const _id = req.userId;
-    console.log(_id,"id")
     const userId = _id.toString();
     const currentUser = await UserModel.findById(userId);
 
@@ -123,7 +122,7 @@ export const getTimelinePosts = async (req, res) => {
         .status(403)
         .json({ success: false, message: "User not found" });
     }
-    console.log("user authenctaed")
+    
     const followingIds = [
       userId,
       ...currentUser.following.map((follow) => follow.following_Id),
@@ -134,7 +133,7 @@ export const getTimelinePosts = async (req, res) => {
     
    
     timelinePosts.reverse();
-    res.status(200).json({success:true,message:"Post Fetch Successfully",post:timelinePosts});
+    res.status(200).json({success:true,message:"Post Fetch Successfully",posts:timelinePosts});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

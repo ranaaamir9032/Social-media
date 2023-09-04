@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 export const requireAuth = async (req, res, next) => {
   try {
     const {token} = req.cookies;
-    console.log(token,"token")
+ 
     if (!token) {
       throw new Error("please Login To acces the resources");
     }

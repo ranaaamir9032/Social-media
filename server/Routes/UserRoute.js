@@ -6,7 +6,7 @@ import singleUpload from "../Middlewares/multer.js";
 
 const router = express.Router()
 router.get('/:id', getUser);
-router.get('/', requireAuth,getAllUsers)
+router.get('/',getAllUsers)
 router.put('/',requireAuth,singleUpload, updateUser)
 router.delete('/:id', deleteUser)
 router.patch('/follow/:id', requireAuth,  followUser)

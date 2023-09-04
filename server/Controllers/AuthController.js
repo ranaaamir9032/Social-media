@@ -52,7 +52,6 @@ export const Signup = async (req, res) => {
 
 export const Login = async (req, res) => {
   try {
-    res.header("Access-Control-Allow-Origin", "*");
     const { username, password } = req.body;
 
     const user = await UserModel.findOne({ username });
@@ -81,7 +80,7 @@ export const Login = async (req, res) => {
 
 export const getMyProfile=async(req,resp)=>{
   try {
-    resp.header("Access-Control-Allow-Origin", "*");
+   
    const user_id =req.userId
     const user= await UserModel.findOne({_id :user_id})
 

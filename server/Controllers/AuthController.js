@@ -26,7 +26,7 @@ export const Signup = async (req, res) => {
     const fileUri = dataUri(file);
 
     const myCloud = await cloudinary.v2.uploader.upload(fileUri.content);
-    console.log(myCloud, "mycloud");
+    console.log(myCloud , "mycloud");
     const user = await UserModel.create({
       username,
       password,
@@ -65,51 +65,45 @@ export const Login = async (req, res) => {
       throw new Error("incorrect email and password");
     }
     const token = await createToken(user._id);
-    const options = {
-      expires: new Date(Date.now() + 15 * 24 * 60 * 60 * 1000),
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
-    };
-    res
-      .status(200)
-      .cookie("token", token, options)
-      .json({ message: "Loggin Successfully", user, token });
+    const options={
+      expires:new Date(Date.now()+ 15 * 24 * 60 * 60 * 1000),
+      httpOnly:true,
+      secure:true,
+     sameSite:"none"
+  }
+    res.status(200).cookie("token",token,options).json({ message: "Loggin Successfully", user,token });
   } catch (error) {
     res.status(500).json({ message: error.message });
+    
   }
 };
 
-export const getMyProfile = async (req, resp) => {
+export const getMyProfile=async(req,resp)=>{
   try {
-    const user_id = req.userId;
-    const user = await UserModel.findOne({ _id: user_id });
+   
+   const user_id =req.userId
+    const user= await UserModel.findOne({_id :user_id})
 
     resp.status(200).json({
-      success: true,
-      user,
-    });
+      success:true,
+      user
+    })
   } catch (error) {
     resp.status(500).json({ message: error.message });
   }
-};
+}
 
-export const logout = async (req, res) => {
- try {
-  res
-    .status(200)
-    .cookie("token", null, {
-      expires: new Date(Date.now()),
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
-    })
-    .json({
-      success: true,
-      message: "Logout Successfully",
-    });
-  
- } catch (error) {
-  res.status(500).json({message:error.message})
- }
-};
+export const logout =async(req ,res)=>{
+
+  res.status(200).cookie("token",null,{
+      expires:new Date(Date.now()),
+      httpOnly:true,
+      secure:true,
+      sameSite:"none"
+      
+  }).json({
+      success:true,
+      message:"Logout Successfully"
+  })
+
+}

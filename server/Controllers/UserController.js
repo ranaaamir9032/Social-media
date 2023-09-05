@@ -129,7 +129,7 @@ export const followUser = async (req, res) => {
       await followingUser.updateOne({
         $push: { following: { following_Id: id } },
       });
-      res.status(200).json({success : true , message:`You start following ${followUser.firstname}`,userId:followUser._id});
+      res.status(200).json({success : true , message:`You start following ${followUser.firstname} ${followUser.lastname}`,userId:followUser._id});
     } else {
       await followUser.updateOne({
         $pull: { followers: { follower_Id: _id } },
@@ -137,7 +137,7 @@ export const followUser = async (req, res) => {
       await followingUser.updateOne({
         $pull: { following: { following_Id: id } },
       });
-      res.status(200).json({success : true , message:`You unfollowed ${followUser.firstname}`,userId:followUser._id});
+      res.status(200).json({success : true , message:`You unfollowed ${followUser.firstname} ${followUser.lastname}`,userId:followUser._id});
     }
   } catch (error) {
     console.log(error);
